@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>tech.miaowu</groupId>
+    <groupId>tech.miaowu.spider</groupId>
     <artifactId>gne</artifactId>
     <version>0.1.0</version>
     <packaging>jar</packaging>
@@ -10,11 +10,33 @@
     <description>A news extractor based on text and symbol density.</description>
     <url>https://gne.miaowu.tech</url>
 
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Ansel Wang</name>
+            <email>chinaiter@163.com</email>
+            <organization>MiaowuTech</organization>
+            <organizationUrl>https://miaowu.tech</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git@github.com:miaowu-tech/GeneralNewsExtractor4J.git</connection>
+        <developerConnection>scm:git:ssh://github.com:miaowu-tech/GeneralNewsExtractor4J.git</developerConnection>
+        <url>https://github.com/miaowu-tech/GeneralNewsExtractor4J/tree/main</url>
+    </scm>
+
     <properties>
         <skipTests>true</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
         <hutool.version>5.8.29</hutool.version>
         <slf4j.version>2.0.13</slf4j.version>
         <lombok.version>1.18.30</lombok.version>
@@ -25,6 +47,10 @@
 
         <!-- 插件版本 -->
         <maven-compiler-plugin.verison>3.11.0</maven-compiler-plugin.verison>
+        <maven-gpg-plugin.verison>1.5</maven-gpg-plugin.verison>
+        <maven-javadoc-plugin.verison>2.9.1</maven-javadoc-plugin.verison>
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <central-publishing-maven-plugin>0.6.0</central-publishing-maven-plugin>
     </properties>
 
     <dependencies>
@@ -93,6 +119,62 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing-maven-plugin}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.verison}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.verison}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Prevent gpg from using pinentry programs -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
