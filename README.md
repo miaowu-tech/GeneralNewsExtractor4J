@@ -1,2 +1,2 @@
-# GeneralNewsExtractor4J
-新闻网页正文通用抽取器
+# 通用新闻抽取器
+项目参考Python版[GeneralNewsExtractor](https://github.com/GeneralNewsExtractor/GeneralNewsExtractor)和知网论文[《基于文本及符号密度的网页正文提取方法》](https://kns.cnki.net/KCMS/detail/detail.aspx?dbcode=CJFQ&dbname=CJFDLAST2019&filename=GWDZ201908029&v=MDY4MTRxVHJXTTFGckNVUkxPZmJ1Wm5GQ2poVXJyQklqclBkTEc0SDlqTXA0OUhiWVI4ZVgxTHV4WVM3RGgxVDM=)）实现。
